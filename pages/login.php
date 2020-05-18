@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once("../Session.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,11 +23,37 @@
                 <form action="auth.php" method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="email"
+                               class="form-control <?= Session::has("errors.email") ? "is-invalid" : "" ?>"
+                               id="email" name="email">
+                        <?php if (Session::has("errors.email")): ?>
+                            <span class="invalid-feedback">
+                                <?php
+                                echo $_SESSION["errors"]["email"];
+                                unset($_SESSION["errors"]["email"]);
+                                ?>
+                            </span>
+                        <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Parol</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password"
+                               class="form-control <?= Session::has("errors.password") ? "is-invalid" : "" ?>"
+                               id="password" name="password">
+                        <?php if (Session::has("errors.password")): ?>
+                            <span class="invalid-feedback">
+                                <?php
+                                echo $_SESSION["errors"]["password"];
+                                unset($_SESSION["errors"]["password"]);
+                                ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="remember" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Meni eslab qol
+                        </label>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Kirish</button>
