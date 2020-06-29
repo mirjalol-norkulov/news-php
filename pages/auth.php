@@ -1,7 +1,11 @@
 <?php
+
+
 session_start();
 
-require_once("../DBConnection.php");
+require_once('../vendor/autoload.php');
+
+use App\DB\DBConnection;
 
 $conn = DBConnection::getConnection();
 
@@ -32,6 +36,7 @@ $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     $user = $result->fetch_assoc();
     if (password_verify($password, $user["password"])) {
+        // Auth::login($user);
         $_SESSION["user"] = $user["id"];
 
         header("Location:/");

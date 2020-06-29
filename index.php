@@ -1,6 +1,10 @@
 <?php
 session_start();
-require_once("DBConnection.php");
+
+require_once("vendor/autoload.php");
+
+use App\DB\DBConnection;
+
 // isset = is set?
 $userId = null;
 if (isset($_SESSION["user"])) {
