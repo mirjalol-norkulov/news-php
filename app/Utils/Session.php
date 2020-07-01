@@ -15,7 +15,7 @@ class Session
      */
     public static function put(string $key, $value): void
     {
-        $_SESSION[$key] = $value;
+        Arr::set($_SESSION, $key, $value);
     }
 
     /**
