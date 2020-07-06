@@ -13,7 +13,7 @@ class Session
      * @param $key
      * @param $value
      */
-    public static function put(string $key, $value): void
+    public function put(string $key, $value): void
     {
         Arr::set($_SESSION, $key, $value);
     }
@@ -22,7 +22,7 @@ class Session
      * @param string $key
      * @return mixed
      */
-    public static function get(string $key)
+    public function get(string $key)
     {
         return Arr::get($_SESSION, $key);
     }
@@ -31,7 +31,7 @@ class Session
      * @param $key
      * @return mixed
      */
-    public static function pop(string $key)
+    public function pop(string $key)
     {
         return Arr::pull($_SESSION, $key);
     }
@@ -40,7 +40,7 @@ class Session
      * @param $key
      * @return bool
      */
-    public static function has(string $key)
+    public function has(string $key)
     {
         return Arr::has($_SESSION, $key);
     }
@@ -48,7 +48,7 @@ class Session
     /**
      * @param string $key
      */
-    public static function remove(string $key)
+    public function remove(string $key)
     {
         Arr::forget($_SESSION, $key);
     }

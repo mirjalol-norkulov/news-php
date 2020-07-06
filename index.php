@@ -3,22 +3,41 @@ session_start();
 
 require_once("vendor/autoload.php");
 
+use App\Controllers\NotFoundController;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
 
 $request = Request::createFromGlobals();
 
-$uri = $request->server->get('REQUEST_URI');
 
-switch ($uri) {
-    case "/login":
-        require "./pages/login.php";
-        break;
-    case "/":
-        require "./pages/homepage.php";
-        break;
-    default:
-        require "./pages/404.php";
-        break;
+$fileLocator = new FileLocator([__DIR__]);
+$loader = new YamlFileLoader($fileLocator);
+$routes = $loader->load('routes/routes.yaml');
+
+$context = new RequestContext('/');
+$context->fromRequest($request);
+
+// Routing can match routes with incoming requests
+$matcher = new UrlMatcher($routes, $context);
+
+
+try {
+    $match = $matcher->matchRequest($request);
+} catch (ResourceNotFoundException $e) {
+    (new NotFoundController())->notFound();
+}
+
+$class = $match['_controller'];
+$method = $match['_action'];
+
+if (class_exists($class)) {
+    var_dump($match);
+    $controller = new $class(); // $controller = new LoginController();
+    $controller->{$method}();  // $controller->login();
 }
 
 

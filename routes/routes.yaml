@@ -1,0 +1,23 @@
+login:
+  path: /login
+  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'login'}
+  methods: GET
+loginHandle:
+  path: /login
+  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'loginHandle'}
+  methods: POST
+logout:
+  path: /logout
+  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'logout'}
+  methods: POST
+home:
+  path: /
+  defaults: {_controller: 'App\Controllers\HomeController', _action: 'index'}
+  methods: GET
+news:
+  path: /news
+  defaults: {_controller: 'App\Controllers\NewsController', _action: 'index'}
+
+newsDetail:
+  path: /news/{id}
+  defaults: {_controller: 'App\Controllers\NewsController', _action: 'edit'}

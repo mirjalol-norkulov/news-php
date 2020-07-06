@@ -1,14 +1,3 @@
-<?php
-
-use App\Auth\Auth;
-use App\Utils\Session;
-
-// Redirect user to homepage if already logged in
-if (Auth::isLoggedIn()) {
-    header("Location:/");
-}
-
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,28 +17,32 @@ if (Auth::isLoggedIn()) {
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">Kirish</h3>
-                    <form action="auth.php" method="post">
+                    <form action="/login" method="post">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email"
-                                   class="form-control <?= Session::has("errors.email") ? "is-invalid" : "" ?>"
+                                   class="form-control {{ session.has('errors.email') ? "is-invalid" : "" }}"
                                    id="email" name="email">
-                            <?php if (Session::has("errors.email")): ?>
+
+                            {% if session.has('errors.email') %}
                                 <span class="invalid-feedback">
-                                <?= Session::pop("errors.email") ?>
-                            </span>
-                            <?php endif; ?>
+                                    {{ session.pop('errors.email') }}
+                                </span>
+                            {% endif %}
+
                         </div>
                         <div class="form-group">
                             <label for="password">Parol</label>
                             <input type="password"
-                                   class="form-control <?= Session::has("errors.password") ? "is-invalid" : "" ?>"
+                                   class="form-control {{ session.has('errors.password') ? "is-invalid" : "" }}"
                                    id="password" name="password">
-                            <?php if (Session::has("errors.password")): ?>
+
+                            {% if session.has('errors.password') %}
                                 <span class="invalid-feedback">
-                                <?= Session::pop("errors.password"); ?>
-                            </span>
-                            <?php endif; ?>
+                                    {{ session.pop('errors.password') }}
+                                </span>
+                            {% endif %}
+
                         </div>
                         <div class="form-check mb-4">
                             <input class="form-check-input" name="remember" type="checkbox" value="" id="defaultCheck1">

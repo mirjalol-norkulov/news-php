@@ -1,3 +1,4 @@
 # Ignore PHPStorm files
 .idea
 /vendor/
+pages/cache
