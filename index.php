@@ -3,6 +3,7 @@ session_start();
 
 require_once("vendor/autoload.php");
 
+use App\Auth\Auth;
 use App\Controllers\NotFoundController;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,13 @@ try {
 $class = $match['_controller'];
 $method = $match['_action'];
 
+if ($match['auth']) {
+    if (!Auth::isLoggedIn()) {
+        header("Location:/login");
+    }
+}
+
 if (class_exists($class)) {
-    var_dump($match);
     $controller = new $class(); // $controller = new LoginController();
     $controller->{$method}();  // $controller->login();
 }

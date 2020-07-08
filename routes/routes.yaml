@@ -12,12 +12,12 @@ logout:
   methods: POST
 home:
   path: /
-  defaults: {_controller: 'App\Controllers\HomeController', _action: 'index'}
+  defaults: {_controller: 'App\Controllers\HomeController', _action: 'index', auth: true, _middlewares: ['App\Middleware\TestMiddleware']}
   methods: GET
 news:
   path: /news
-  defaults: {_controller: 'App\Controllers\NewsController', _action: 'index'}
+  defaults: {_controller: 'App\Controllers\NewsController', _action: 'index', auth: true}
 
 newsDetail:
   path: /news/{id}
-  defaults: {_controller: 'App\Controllers\NewsController', _action: 'edit'}
+  defaults: {_controller: 'App\Controllers\NewsController', _action: 'edit', auth: true, params: ['id']}

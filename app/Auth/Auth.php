@@ -19,13 +19,13 @@ class Auth
      */
     public static function isLoggedIn(): bool
     {
-        return Session::has(self::SESSION_KEY);
+        return (new Session)->has(self::SESSION_KEY);
     }
 
 
     public static function user()
     {
-        $userId = Session::get(self::SESSION_KEY);
+        $userId = (new Session)->get(self::SESSION_KEY);
 
         if (!isset($userId)) {
             return null;

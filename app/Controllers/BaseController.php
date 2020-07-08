@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Auth\Auth;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -31,6 +32,10 @@ abstract class BaseController
      */
     public function render($name, array $context = [])
     {
+        $user = Auth::user();
+        $context = array_merge($context, [
+            'user' => $user
+        ]);
         echo $this->twig->render($name, $context);
     }
 }

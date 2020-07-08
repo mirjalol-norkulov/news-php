@@ -14,7 +14,6 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $user = Auth::user();
-        $this->render('index.html.twig', ['user' => $user]);
+        $this->render('index.html.twig');
     }
 }
