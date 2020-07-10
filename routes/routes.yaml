@@ -16,8 +16,12 @@ home:
   methods: GET
 news:
   path: /news
-  defaults: {_controller: 'App\Controllers\NewsController', _action: 'index', auth: true}
+  defaults: {_controller: 'App\Controllers\NewsController::index', auth: true}
 
 newsDetail:
   path: /news/{id}
-  defaults: {_controller: 'App\Controllers\NewsController', _action: 'edit', auth: true, params: ['id']}
+  defaults: {_controller: 'App\Controllers\NewsController::edit', auth: true}
+  methods: GET
+newsEditSave:
+  path: /news/{id}
+  defaults: {_controller: 'App\Controllers\NewsController::editSave'}

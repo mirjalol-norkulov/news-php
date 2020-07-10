@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Auth\Auth;
+use App\Utils\Session;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -34,7 +35,8 @@ abstract class BaseController
     {
         $user = Auth::user();
         $context = array_merge($context, [
-            'user' => $user
+            'user' => $user,
+            'session' => new Session()
         ]);
         echo $this->twig->render($name, $context);
     }
