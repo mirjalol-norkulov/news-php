@@ -4,6 +4,7 @@
 namespace App\Auth;
 
 use App\DB\DBConnection;
+use App\DB\Models\User;
 use App\Utils\Session;
 
 /**
@@ -31,12 +32,6 @@ class Auth
             return null;
         }
 
-        $connection = DBConnection::getConnection();
-        $sql = "SELECT * FROM users WHERE id = $userId LIMIT 1";
-        $result = $connection->query($sql);
-
-        if ($result && $result->num_rows > 0) {
-            return $result->fetch_assoc();
-        }
+        return User::get($userId);
     }
 }

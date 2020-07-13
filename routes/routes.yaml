@@ -1,27 +1,48 @@
 login:
   path: /login
-  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'login'}
+  defaults: {_controller: 'App\Controllers\Auth\LoginController::login'}
   methods: GET
+
 loginHandle:
   path: /login
-  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'loginHandle'}
+  defaults: {_controller: 'App\Controllers\Auth\LoginController::loginHandle'}
   methods: POST
+
 logout:
   path: /logout
-  defaults: {_controller: 'App\Controllers\Auth\LoginController', _action: 'logout'}
+  defaults: {_controller: 'App\Controllers\Auth\LoginController::logout'}
   methods: POST
+
 home:
   path: /
-  defaults: {_controller: 'App\Controllers\HomeController', _action: 'index', auth: true, _middlewares: ['App\Middleware\TestMiddleware']}
+  defaults: {_controller: 'App\Controllers\HomeController::index', auth: true, _middlewares: ['App\Middleware\TestMiddleware']}
   methods: GET
+
 news:
   path: /news
   defaults: {_controller: 'App\Controllers\NewsController::index', auth: true}
+
+newsCreate:
+  path: /news/create
+  defaults: {_controller: 'App\Controllers\NewsController::create'}
+  methods: GET
+
+newsCreateSave:
+  path: /news/create
+  defaults: {_controller: 'App\Controllers\NewsController::createSave'}
+  methods: POST
 
 newsDetail:
   path: /news/{id}
   defaults: {_controller: 'App\Controllers\NewsController::edit', auth: true}
   methods: GET
+
 newsEditSave:
   path: /news/{id}
   defaults: {_controller: 'App\Controllers\NewsController::editSave'}
+  methods: POST
+
+newsDelete:
+  path: /news/{id}/delete
+  defaults: {_controller: 'App\Controllers\NewsController::delete'}
+  methods: POST

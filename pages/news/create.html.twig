@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block title %}
-    {{ news.name }}
+    Yangilik qo'shish
 {% endblock %}
 
 {% block content %}
@@ -10,14 +10,13 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Tahrirlash #{{ news.id }}</h3>
-                        <form action="/news/{{ news.id }}" method="post" enctype="multipart/form-data">
+                        <h3 class="card-title">Yangilik qo'shish</h3>
+                        <form action="/news/create" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="name">Yangilik sarlavhasi</label>
                                 <input type="text"
                                        class="form-control {{ session.has('errors.name') ? "is-invalid" : "" }}"
                                        id="name" name="name" autocomplete="off"
-                                       value="{{ news.name }}"
                                        required>
                                 {% if session.has('errors.name') %}
                                     <span class="invalid-feedback">
@@ -28,6 +27,7 @@
                             <div class="form-group">
                                 <label for="image">Yangilik surati</label>
                                 <input type="file"
+                                       required
                                        class="form-control {{ session.has('errors.image') ? "is-invalid" : "" }}"
                                        id="image" name="image">
                                 {% if session.has('errors.image') %}
@@ -35,16 +35,15 @@
                                         {{ session.pop('errors.image') }}
                                     </span>
                                 {% endif %}
-                                <div class="my-4">
-                                    <img src="{{ news.image }}" width="200" alt="{{ news.name }}">
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="content">Yangilik matni</label>
                                 <textarea type="file"
                                           class="form-control {{ session.has('errors.content') ? "is-invalid" : "" }}"
-                                          id="content" name="content" rows="10"
-                                          required>{{ news.content }}</textarea>
+                                          id="content"
+                                          name="content"
+                                          rows="10"
+                                ></textarea>
                                 {% if session.has('errors.content') %}
                                     <span class="invalid-feedback">
                                         {{ session.pop('errors.content') }}

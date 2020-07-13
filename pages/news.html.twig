@@ -15,13 +15,20 @@
                 <h1 class="text-center mb-3">Yangiliklar</h1>
                 {% for newsItem in news %}
                     <div class="card mb-4">
-                        <img src="{{ newsItem.image }}" class="card-img-top" alt="{{ newsItem.name }}">
-                        <div class="card-body">
+                        <div class="card-header d-flex flex-row justify-content-between">
                             <h5 class="card-title">
                                 {{ newsItem.name }}
                             </h5>
+                            <form action="/news/{{ newsItem.id }}/delete" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    O'chirish
+                                </button>
+                            </form>
+                        </div>
+                        <img src="{{ newsItem.image }}" class="card-img-top" alt="{{ newsItem.name }}">
+                        <div class="card-body">
                             <p>
-                                {{ newsItem.content }}
+                                {{ newsItem.content | raw }}
                             </p>
                             <a href="/news/{{ newsItem.id }}" class="card-link">O'zgartirish</a>
                         </div>
