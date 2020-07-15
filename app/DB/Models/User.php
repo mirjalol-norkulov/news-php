@@ -8,8 +8,8 @@ namespace App\DB\Models;
  */
 class User extends BaseModel
 {
-    static function getTableName(): string
-    {
-        return 'users';
-    }
+    /**
+     * @var string
+     */
+    protected $table = 'users';
 }

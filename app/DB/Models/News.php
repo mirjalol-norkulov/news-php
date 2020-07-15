@@ -7,8 +7,5 @@ namespace App\DB\Models;
  */
 class News extends BaseModel
 {
-    static function getTableName(): string
-    {
-        return 'news';
-    }
+
 }

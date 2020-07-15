@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Auth\Auth;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use App\DB\Models\News;
 
 /**
  * Class HomeController

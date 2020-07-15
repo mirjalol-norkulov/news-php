@@ -13,18 +13,17 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class NewsController extends BaseController
 {
-    public function index()
+    public function index(Request $request)
     {
-        $conn = DBConnection::getConnection();
-        $sql = "SELECT * FROM news LIMIT 10 OFFSET 0";
-        $result = $conn->query($sql);
+        $limit = $request->query->get('limit') ?: 10;
+        $offset = $request->query->get('offset') ?: 0;
 
-        $news = [];
-        while ($newsItem = $result->fetch_assoc()) {
-            array_push($news, $newsItem);
-        }
-
-        $this->render('news.html.twig', ['news' => $news]);
+        $news = News::paginate($limit, $offset);
+        $this->render('news.html.twig', [
+            'news' => $news,
+            'offset' => $offset,
+            'limit' => $limit
+        ]);
     }
 
     public function create()
@@ -68,25 +67,12 @@ class NewsController extends BaseController
             $data['image'] = '/uploads/images/' . $filename;
         }
 
-        $conn = DBConnection::getConnection();
+        $data['name'] = $request->request->get('name');
+        $data['content'] = $request->request->get('content');
 
-        $data['name'] = mysqli_real_escape_string($conn, $request->request->get('name'));
-        $data['content'] = mysqli_real_escape_string($conn, $request->request->get('content'));
+        News::update($id, $data);
 
-        $sql = "UPDATE news SET name='{$data['name']}', " .
-            "content = '{$data['content']}'";
-
-        if ($data['image']) {
-            $sql = $sql . ", image='{$data['image']}'";
-        }
-
-        $sql = $sql . " WHERE id=$id";
-
-        $result = $conn->query($sql);
-
-        if ($result) {
-            header("Location:/news");
-        }
+        return header("Location: /news");
     }
 
     public function delete(int $id)
