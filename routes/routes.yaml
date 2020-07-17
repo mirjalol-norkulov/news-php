@@ -1,3 +1,13 @@
+front_home:
+  path: /
+  defaults: {_controller: 'App\Controllers\Frontend\HomeController::index'}
+  methods: GET
+
+front_news_details:
+  path: /news/{id}
+  defaults: {_controller: 'App\Controllers\Frontend\HomeController::newsDetail'}
+  methods: GET
+
 login:
   path: /login
   defaults: {_controller: 'App\Controllers\Auth\LoginController::login'}
@@ -10,39 +20,39 @@ loginHandle:
 
 logout:
   path: /logout
-  defaults: {_controller: 'App\Controllers\Auth\LoginController::logout'}
+  defaults: {_controller: 'App\Controllers\Auth\LoginController::logout', _middlewares: ['auth']}
   methods: POST
 
 home:
-  path: /
-  defaults: {_controller: 'App\Controllers\HomeController::index', auth: true, _middlewares: ['App\Middleware\TestMiddleware']}
+  path: /admin
+  defaults: {_controller: 'App\Controllers\HomeController::index', _middlewares: ['auth']}
   methods: GET
 
 news:
-  path: /news
-  defaults: {_controller: 'App\Controllers\NewsController::index', auth: true}
+  path: /admin/news
+  defaults: {_controller: 'App\Controllers\NewsController::index', _middlewares: ['auth']}
 
 newsCreate:
-  path: /news/create
-  defaults: {_controller: 'App\Controllers\NewsController::create'}
+  path: /admin/news/create
+  defaults: {_controller: 'App\Controllers\NewsController::create', _middlewares: ['auth']}
   methods: GET
 
 newsCreateSave:
-  path: /news/create
-  defaults: {_controller: 'App\Controllers\NewsController::createSave'}
+  path: /admin/news/create
+  defaults: {_controller: 'App\Controllers\NewsController::createSave', _middlewares: ['auth']}
   methods: POST
 
 newsDetail:
-  path: /news/{id}
-  defaults: {_controller: 'App\Controllers\NewsController::edit', auth: true}
+  path: /admin/news/{id}
+  defaults: {_controller: 'App\Controllers\NewsController::edit', auth: true, _middlewares: ['auth']}
   methods: GET
 
 newsEditSave:
-  path: /news/{id}
-  defaults: {_controller: 'App\Controllers\NewsController::editSave'}
+  path: /admin/news/{id}
+  defaults: {_controller: 'App\Controllers\NewsController::editSave', _middlewares: ['auth']}
   methods: POST
 
 newsDelete:
-  path: /news/{id}/delete
-  defaults: {_controller: 'App\Controllers\NewsController::delete'}
+  path: /admin/news/{id}/delete
+  defaults: {_controller: 'App\Controllers\NewsController::delete', _middlewares: ['auth']}
   methods: POST

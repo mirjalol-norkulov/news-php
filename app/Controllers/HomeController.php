@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Auth\Auth;
 use App\DB\Models\News;
 
 /**

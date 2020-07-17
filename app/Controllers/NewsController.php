@@ -47,7 +47,7 @@ class NewsController extends BaseController
 
         News::create($data);
 
-        header("Location:/news");
+        header("Location:/admin/news");
     }
 
     public function edit(Request $request, int $id, bool $auth)
@@ -72,12 +72,12 @@ class NewsController extends BaseController
 
         News::update($id, $data);
 
-        return header("Location: /news");
+        return header("Location: /admin/news");
     }
 
     public function delete(int $id)
     {
         News::delete($id);
-        header("Location:/news");
+        header("Location:/admin/news");
     }
 }
